@@ -34,7 +34,7 @@ import {
   SiSass,
   SiGoogle,
 } from "react-icons/si";
-import { Workflow, Sparkles, Cpu, ShieldCheck } from "lucide-react";
+import { Workflow, Sparkles, Cpu, ShieldCheck, Zap, Bot, Server } from "lucide-react";
 
 const techDetails = {
   React: { icon: SiReact, color: "#61DAFB" },
@@ -90,6 +90,8 @@ const techDetails = {
   "AI/ML": { icon: Cpu, color: "#FF6F00" },
   "Google OAuth": { icon: SiGoogle, color: "#4285F4" },
   "Better Auth": { icon: ShieldCheck, color: "#8B5CF6" },
+  FastAPI: { icon: Zap, color: "#009688" },
+  CrewAI: { icon: Bot, color: "#FF6F00" },
   "shadcn/ui": { icon: SiReact, color: "#F1F5F9", darkColor: "#0f172a" },
 };
 
@@ -142,10 +144,8 @@ export default function ProjectCard({ project, index = 0 }) {
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-accent/10 via-bg-secondary to-accent/5">
-            <span className="text-sm font-medium text-text-secondary/60">
-              {project.title}
-            </span>
+          <div className="flex h-full w-full items-center justify-center bg-bg-secondary">
+            <Server className="h-10 w-10 text-text-secondary/30" />
           </div>
         )}
       </div>

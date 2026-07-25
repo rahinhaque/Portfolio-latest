@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ExternalLink } from "lucide-react";
+import { ArrowLeft, ExternalLink, Server } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import { projects } from "@/lib/projects";
 import { TechBadge } from "@/components/ProjectCard";
@@ -107,10 +107,8 @@ export default async function ProjectDetailPage({ params }) {
             />
           </div>
         ) : (
-          <div className="mb-10 flex h-64 items-center justify-center overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-accent/10 via-bg-secondary to-accent/5">
-            <span className="text-lg font-medium text-text-secondary/50">
-              {project.title}
-            </span>
+          <div className="mb-10 flex h-64 items-center justify-center overflow-hidden rounded-2xl border border-border bg-bg-secondary">
+            <Server className="h-16 w-16 text-text-secondary/30" />
           </div>
         )}
 
