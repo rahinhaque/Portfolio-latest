@@ -1,0 +1,202 @@
+@import "tailwindcss";
+
+/* ================================================================
+   THEME SYSTEM — 3 themes × light/dark
+   Each theme defines semantic CSS custom properties.
+   The ThemeProvider applies data-theme="name" + .dark to <html>.
+   ================================================================ */
+
+/* ── Default fallback ─────────────────────────────────────────── */
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --accent: #6366f1;
+  --accent-hover: #4f46e5;
+  --border: #e2e8f0;
+}
+
+/* ── Modern — Indigo / Slate ──────────────────────────────────── */
+[data-theme="modern"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --accent: #6366f1;
+  --accent-hover: #4f46e5;
+  --border: #e2e8f0;
+}
+.dark[data-theme="modern"],
+[data-theme="modern"].dark {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --accent: #818cf8;
+  --accent-hover: #6366f1;
+  --border: #334155;
+}
+
+/* ── DevDark — Emerald / Charcoal ─────────────────────────────── */
+[data-theme="devdark"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f0fdf4;
+  --text-primary: #1a1a2e;
+  --text-secondary: #555568;
+  --accent: #10b981;
+  --accent-hover: #059669;
+  --border: #e5e7eb;
+}
+.dark[data-theme="devdark"],
+[data-theme="devdark"].dark {
+  --bg-primary: #0d1117;
+  --bg-secondary: #161b22;
+  --text-primary: #e6edf3;
+  --text-secondary: #8b949e;
+  --accent: #34d399;
+  --accent-hover: #10b981;
+  --border: #30363d;
+}
+
+/* ── Warm — Amber / Stone ─────────────────────────────────────── */
+[data-theme="warm"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #fffbeb;
+  --text-primary: #292524;
+  --text-secondary: #78716c;
+  --accent: #f59e0b;
+  --accent-hover: #d97706;
+  --border: #e7e5e4;
+}
+.dark[data-theme="warm"],
+[data-theme="warm"].dark {
+  --bg-primary: #1c1917;
+  --bg-secondary: #292524;
+  --text-primary: #fafaf9;
+  --text-secondary: #a8a29e;
+  --accent: #fbbf24;
+  --accent-hover: #f59e0b;
+  --border: #44403c;
+}
+
+/* ================================================================
+   TAILWIND v4 — Expose CSS variables as utility classes
+   Usage: bg-bg-primary, text-text-primary, border-border, etc.
+   ================================================================ */
+@theme inline {
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-border: var(--border);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ── Global base styles ───────────────────────────────────────── */
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-geist-sans, Arial, Helvetica, sans-serif);
+}
+
+/* ================================================================
+   ANIMATIONS — Hero entrance + misc utility keyframes
+   Usage: animate-fade-in-up, animate-fade-in, animate-bounce-slow,
+          animate-pulse-dot
+   ================================================================ */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes bounceSlow {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(6px); }
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.4; }
+}
+
+@theme inline {
+  --animate-fade-in-up: fadeInUp 0.7s ease-out both;
+  --animate-fade-in: fadeIn 0.6s ease-out both;
+  --animate-bounce-slow: bounceSlow 2s ease-in-out infinite;
+  --animate-pulse-dot: pulseDot 1.8s ease-in-out infinite;
+  --animate-marquee: marquee var(--marquee-speed, 30s) linear infinite;
+}
+
+/* ── Marquee keyframes ──────────────────────────────────────── */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+[data-pause]:hover > div {
+  animation-play-state: paused;
+}
+
+/* ── Skill badge brand-color theming ────────────────────────── */
+.skill-badge {
+  border-color: color-mix(in srgb, var(--skill-color) 25%, transparent);
+  background-color: color-mix(in srgb, var(--skill-color) 8%, transparent);
+}
+
+.skill-badge:hover {
+  border-color: color-mix(in srgb, var(--skill-color) 55%, transparent);
+  background-color: color-mix(in srgb, var(--skill-color) 15%, transparent);
+  box-shadow: 0 0 20px color-mix(in srgb, var(--skill-color) 15%, transparent);
+}
+
+.skill-icon {
+  color: var(--skill-color);
+}
+
+.dark .skill-icon {
+  color: var(--skill-dark);
+}
+
+/* ── Route transition loader — bouncing dots ────────────────── */
+@keyframes loadingDotBounce {
+  0%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-8px); }
+}
+
+.loading-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: loadingDotBounce 1.2s ease-in-out infinite;
+}
+.loading-dot:nth-child(2) { animation-delay: 0.15s; }
+.loading-dot:nth-child(3) { animation-delay: 0.3s; }
+
+/* ── Custom cursor — hide default on non-touch devices ──────── */
+@media (hover: hover) and (pointer: fine) {
+  body,
+  a,
+  button,
+  input,
+  textarea,
+  select,
+  label,
+  [role="button"] {
+    cursor: none;
+  }
+}
